@@ -6,10 +6,7 @@ import ir.maktab.hw10.question2.entity.Order;
 import ir.maktab.hw10.question2.entity.Product;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -32,7 +29,7 @@ public class Main {
                 , new Order(1, Date.valueOf("2022-02-12"), 3, 15, product1, customer2)
                 , new Order(1, Date.valueOf("2022-02-13"), 4, 14, product1, customer3)
                 , new Order(1, Date.valueOf("2022-12-20"), 5, 13, product1, customer2)
-                , new Order(1, Date.valueOf("2021-02-20"), 1, 12, product1, customer1)
+                , new Order(1, Date.valueOf("2021-04-01"), 1, 12, product1, customer1)
         ));
         orders.stream()
                 .filter(order -> order.getDate().after(Date.valueOf("2021-02-01"))
@@ -42,5 +39,11 @@ public class Main {
 
         Optional<Product> min = products.stream().min((o1, o2) -> o1.getPrice() < o2.getPrice() ? -1 : 1);
         System.out.println("min: "+min.get());
+
+
+        OptionalDouble average = orders.stream()
+                .filter(order -> order.getDate()
+                        .equals(Date.valueOf("2021-04-01"))).mapToInt(Order::getPrice).average();
+        System.out.println("AVG: "+ average.getAsDouble());
     }
 }

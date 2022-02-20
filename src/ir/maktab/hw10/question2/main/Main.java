@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -38,5 +39,8 @@ public class Main {
                         && order.getDate().before(Date.valueOf("2021-04-01")))
                 .collect(Collectors.toList())
                 .forEach(System.out::println);
+
+        Optional<Product> min = products.stream().min((o1, o2) -> o1.getPrice() < o2.getPrice() ? -1 : 1);
+        System.out.println("min: "+min.get());
     }
 }
